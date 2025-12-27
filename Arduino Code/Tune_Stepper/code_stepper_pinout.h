@@ -3,6 +3,6 @@
 #include "board_pinout.h"
 
 
-#define stepPin (STEPPER_X_STEP)
-#define dirPin (STEPPER_X_DIR)
-#define enPin (STEPPER_X_EN)
+#define stepPin (X_STEP_PIN)
+#define dirPin (X_DIR_PIN)
+#define enPin (X_ENABLE_PIN)
