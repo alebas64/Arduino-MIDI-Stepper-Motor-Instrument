@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "midi_stepper_v1",
+			"path": "."
+		},
+		{
+			"name": "libs",
+			"path": "../libs"
+		},
+		{
+			"name": "internal_libs",
+			"path": "../internal_libs"
+		}
+	]
+}
