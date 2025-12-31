@@ -1,6 +1,8 @@
-#include <MIDI.h>
+#include "MIDI.h"
+//#include "MIDIUSB.h"
 #include "board_pinout.h"
 #include "pitches.h"
+#include "printer_translation.h"
 
 /*
  * MIDI STEPPER V1
@@ -33,11 +35,7 @@
 #define dirPin_M3 Z_DIR_PIN
 #define dirPin_M4 E0_DIR_PIN
 
-//Steppers are enabled when EN pin is pulled LOW
-#define enPin_M1 X_ENABLE_PIN
-#define enPin_M2 Y_ENABLE_PIN
-#define enPin_M3 Z_ENABLE_PIN
-#define enPin_M4 E0_ENABLE_PIN
+//? Note: EN pins are in separate header file now
 
 #define TIMEOUT 10000 //Number of milliseconds for watchdog timer
 
@@ -50,16 +48,13 @@ unsigned long WDT; //Will store the time that the last event occured.
 
 MIDI_CREATE_DEFAULT_INSTANCE(); //use default MIDI settings
 
-void setup() 
-{
-  pinMode(27,OUTPUT);
+void singleStep(byte motorNum, byte stepPin);
+void handleNoteOn(byte channel, byte pitch, byte velocity);
+void handleNoteOff(byte channel, byte pitch, byte velocity);
+
+void setup(){
   Serial.begin(115200);
-  while(true){
-    digitalWrite(27,HIGH);
-    delay(500);
-    digitalWrite(27,LOW);
-    delay(500);
-  }
+
   pinMode(stepPin_M1, OUTPUT);
   pinMode(stepPin_M2, OUTPUT);
   pinMode(stepPin_M3, OUTPUT);
@@ -74,18 +69,56 @@ void setup()
   digitalWrite(dirPin_M2, motorDirection);
   digitalWrite(dirPin_M3, motorDirection);
   digitalWrite(dirPin_M4, motorDirection); //and this one too. */
-  pinMode(enPin, OUTPUT);
+
+  pin_enable_setup(); //setup enable pin / pins
 
   MIDI.begin(MIDI_CHANNEL_OMNI); //listen to all MIDI channels
   MIDI.setHandleNoteOn(handleNoteOn); //execute function when note on message is recieved
   MIDI.setHandleNoteOff(handleNoteOff); //execute function when note off message is recieved
-  //Serial.begin(115200); //allows for serial MIDI communication, comment out if using HIDUINO or LUFA
 }
 
 void loop() 
 {
   MIDI.read(); //read MIDI messages
-  digitalWrite(enPin, disableSteppers); //choose whether to enable or disable steppers.
+
+  // for MIDI over USB
+  /*
+  midiEventPacket_t rx = MidiUSB.read();
+  switch (rx.header) {
+    case 0:
+      break; //No pending events
+      
+    case 0x9:
+      handleNoteOn(
+        rx.byte1 & 0xF,  //channel
+        rx.byte2,        //pitch
+        rx.byte3         //velocity
+      );
+      break;
+      
+    case 0x8:
+      handleNoteOff(
+        rx.byte1 & 0xF,  //channel
+        rx.byte2,        //pitch
+        rx.byte3         //velocity
+      );
+      break;
+      
+    case 0xB:
+      //controlChange(
+      //  rx.byte1 & 0xF,  //channel
+      //  rx.byte2,        //control
+      //  rx.byte3         //value
+      //);
+      break;
+      
+    default:
+      //unhandled message
+      break;
+    }
+  */
+
+  dis_en_steppers(disableSteppers); //choose whether to enable or disable steppers.
   singleStep(1, stepPin_M1); //run each stepper at specified speed
   singleStep(2, stepPin_M2);
   singleStep(3, stepPin_M3);

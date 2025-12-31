@@ -1,4 +1,7 @@
 //USE "SANGUINO" pinout!!!!
+#ifndef BOARD_PINOUT_H
+#define BOARD_PINOUT_H
+
 #ifdef TRONXY
   #ifndef MAINBOARD3DPINOUT
     #define MAINBOARD3DPINOUT
@@ -84,4 +87,27 @@
     #define E0_ENABLE_PIN                          8
     
   #endif
+#endif
+
+#ifdef CUSTUM_ARDUINO_BOARD
+  #ifndef MAINBOARD3DPINOUT
+    #define MAINBOARD3DPINOUT
+    #define X_STEP_PIN                             2
+    #define X_DIR_PIN                              5
+    #define X_ENABLE_PIN                           8
+
+    #define Y_STEP_PIN                             3
+    #define Y_DIR_PIN                              6
+    #define Y_ENABLE_PIN                           8
+  
+    #define Z_STEP_PIN                             4
+    #define Z_DIR_PIN                              7 
+    #define Z_ENABLE_PIN                           8
+  
+    #define E0_STEP_PIN                           12 
+    #define E0_DIR_PIN                            13 
+    #define E0_ENABLE_PIN                          8
+  #endif
+#endif
+
 #endif
