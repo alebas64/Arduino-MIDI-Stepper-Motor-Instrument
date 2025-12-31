@@ -1,0 +1,1 @@
+This folder contains the same codes of "Arduino Code", but with a platformio setting. The common libraries are already inserted in "libs" and "internal_libs" are some script for using any 3d printer mainboard without redifining or eavily modifiing everything in every script (pin defines, enables, ecc....)
