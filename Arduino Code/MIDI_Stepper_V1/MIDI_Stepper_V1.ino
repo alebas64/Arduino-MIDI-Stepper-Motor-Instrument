@@ -47,14 +47,6 @@ MIDI_CREATE_DEFAULT_INSTANCE(); //use default MIDI settings
 
 void setup() 
 {
-  pinMode(27,OUTPUT);
-  Serial.begin(115200);
-  while(true){
-    digitalWrite(27,HIGH);
-    delay(500);
-    digitalWrite(27,LOW);
-    delay(500);
-  }
   pinMode(stepPin_M1, OUTPUT);
   pinMode(stepPin_M2, OUTPUT);
   pinMode(stepPin_M3, OUTPUT);
