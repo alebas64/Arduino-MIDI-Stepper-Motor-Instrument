@@ -14,9 +14,9 @@
  */
 
 //ARDUINO PINS
-
-#include "code_stepper_pinout.h"
-
+#define stepPin 3
+#define dirPin 6
+#define enPin 8
 
 unsigned long motorSpeed = 0;
 unsigned long prevStepMicros = 0;
@@ -27,7 +27,7 @@ void setup() {
   pinMode(dirPin, OUTPUT);
   pinMode(enPin, OUTPUT);
   digitalWrite(dirPin, LOW);
-  Serial.begin(115200);
+  Serial.begin(9600);
   while(!Serial) {/*do nothing*/;}
 
   Serial.println("\n\nPlease Enter a Stepper Motor Speed Value.");
