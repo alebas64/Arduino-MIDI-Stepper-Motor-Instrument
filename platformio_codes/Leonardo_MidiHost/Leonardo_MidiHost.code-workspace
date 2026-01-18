@@ -11,6 +11,10 @@
 		{
 			"name": "internal_libs",
 			"path": "../internal_libs"
+		},
+		{
+			"name": "Schematics",
+			"path": "../../Schematics"
 		}
 	],
 	"settings": {
