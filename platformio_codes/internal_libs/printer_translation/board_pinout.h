@@ -42,6 +42,8 @@
     #define E0_STEP_PIN                           26 //PA4
     #define E0_DIR_PIN                            28 //PA6 
     #define E0_ENABLE_PIN                         24 //PA2
+    #define MIDI_SERIAL_PORT Serial2
+    #define MIDI_SERIAL_TYPE HardwareSerial
   #endif
 #endif
 
@@ -107,6 +109,8 @@
     #define E0_STEP_PIN                           12 
     #define E0_DIR_PIN                            13 
     #define E0_ENABLE_PIN                          8
+    #define MIDI_SERIAL_PORT Serial2
+    #define MIDI_SERIAL_TYPE HardwareSerial
   #endif
 #endif
 

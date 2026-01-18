@@ -46,7 +46,9 @@ const bool motorDirection = LOW; //you can use this to change the motor directio
 bool disableSteppers = HIGH; //status of the enable pin. disabled when HIGH. Gets enabled when the first note on message is received.
 unsigned long WDT; //Will store the time that the last event occured.
 
-MIDI_CREATE_DEFAULT_INSTANCE(); //use default MIDI settings
+//MIDI_CREATE_DEFAULT_INSTANCE(); //use default MIDI settings
+//! FOR NOW, ONLY WORK WITH CREALITY_V25
+MIDI_CREATE_INSTANCE(MIDI_SERIAL_TYPE, MIDI_SERIAL_PORT, MIDI);
 
 void singleStep(byte motorNum, byte stepPin);
 void handleNoteOn(byte channel, byte pitch, byte velocity);
