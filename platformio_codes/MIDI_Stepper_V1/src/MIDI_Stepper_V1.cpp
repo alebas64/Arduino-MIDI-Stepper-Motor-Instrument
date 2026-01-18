@@ -53,7 +53,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity);
 void handleNoteOff(byte channel, byte pitch, byte velocity);
 
 void setup(){
-  Serial.begin(115200);
+  Serial.begin(SERIAL_DEBUG_SPEED);
 
   pinMode(stepPin_M1, OUTPUT);
   pinMode(stepPin_M2, OUTPUT);

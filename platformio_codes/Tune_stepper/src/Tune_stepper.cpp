@@ -1,3 +1,6 @@
+#include "board_pinout.h"
+#include "printer_translation.h"
+
 /*
  * TuneStepper
  * 
@@ -14,26 +17,44 @@
  */
 
 //ARDUINO PINS
-#define stepPin 3
-#define dirPin 6
-#define enPin 8
+#define stepPin_M1 X_STEP_PIN
+#define stepPin_M2 Y_STEP_PIN
+#define stepPin_M3 Z_STEP_PIN
+#define stepPin_M4 E0_STEP_PIN
+
+//note that Direction Pins aren't necessary
+//comment out if you don't plan on using them
+#define dirPin_M1 X_DIR_PIN
+#define dirPin_M2 Y_DIR_PIN
+#define dirPin_M3 Z_DIR_PIN
+#define dirPin_M4 E0_DIR_PIN
+
+//? Note: EN pins are in separate header file now
+
+// this is for the program to work.
+// todo: change the program to enable choosing the motor on runtime
+#define stepPin (X_STEP_PIN)
+#define dirPin (X_DIR_PIN)
+#define enPin (X_ENABLE_PIN)
 
 unsigned long motorSpeed = 0;
 unsigned long prevStepMicros = 0;
 bool stepState = false;
 
-void setup() {
+void setup(){
   pinMode(stepPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
   pinMode(enPin, OUTPUT);
   digitalWrite(dirPin, LOW);
-  Serial.begin(9600);
+
+  Serial.begin(SERIAL_DEBUG_SPEED);
   while(!Serial) {/*do nothing*/;}
 
   Serial.println("\n\nPlease Enter a Stepper Motor Speed Value.");
 }
 
-void loop() {
+//? it does appear that it does nothing...?
+void loop(){
   if (motorSpeed == 0)
   {
     digitalWrite(enPin, HIGH);
